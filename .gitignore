@@ -1,3 +1,7 @@
+./LDM.pro.user
+./deployment.pri
+
+
 # Prerequisites
 *.d
 
