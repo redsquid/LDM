@@ -16,13 +16,13 @@ test::TestResult CoulumbEnergyTest::test() {
 
     const double eps = 1e-10;
 
-    const double expected = 0;
-    Shape shape(1, 0., 0.);
-    CoulombEnergy ce(4, 2);
+    CoulombEnergy se(4, 2);
+    const double expected = se.ec0();
+    Shape shape(1., 0., 0.);
+    double res = se(shape);
 
-    double res = ce(shape);
-
-    std::cout << "Result: " << res << std::endl;
-
-    return fail("Test not implemented");
+    return fabs(res - expected) > eps ?
+                fail("Coulumb energy for spherical shape: expected: " + std::to_string(se.ec0()) +
+                     "actual: " + std::to_string(res))
+              : success();
 }

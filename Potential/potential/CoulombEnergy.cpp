@@ -1,6 +1,8 @@
 #include "CoulombEnergy.h"
 
 #include <iostream>
+#include "const/Const.h"
+
 const size_t CoulombEnergy::ORDER = 32;
 static double calcBcI2(double z, void* params);
 
@@ -11,17 +13,16 @@ struct Params {
     gsl_integration_glfixed_table* goussFixedTable;
 };
 
+
 CoulombEnergy::CoulombEnergy(const uint A, const uint Z) :
-GAUSS_FIXED_TABLE(gsl_integration_glfixed_table_alloc(ORDER)){
+GAUSS_FIXED_TABLE(gsl_integration_glfixed_table_alloc(ORDER)),
+ec0_(3 / 5. * pow(Const::e, 2) * pow(Z, 2) / (Const::r0 * pow(A, 1 / 3.)))
+{
 }
 
 CoulombEnergy::~CoulombEnergy() {
     gsl_integration_glfixed_table_free(GAUSS_FIXED_TABLE);
 }
-
-
-
-
 
 static double fun(double teta, void* params) {
 
@@ -30,13 +31,8 @@ static double fun(double teta, void* params) {
     const double z2 = p.z2;
     const Shape& s = p.shape;
 
-//    return (s.pow2(z1) * s.pow2(z2) * cos(teta) + 1 / 4. * s.deriv(z1) * s.deriv(z2)) *
-//            sqrt(s.pow2(z1) + s.pow2(z2) - 2 * s(z1) * s(z2) * cos(teta) + pow((z1 - z2), 2));
-
     double f = sqrt(s.pow2(z1) + s.pow2(z2) - 2 * s(z1) * s(z2) * cos(teta) + pow((z1 - z2), 2));
     return s.pow2(z1) * s.pow2(z2) * pow(sin(teta), 2) / (z1 - z2 + f) ;
-
-//    return teta * z2 * z1;
 }
 
 static double calcBcI3(double z, void* params) {
@@ -69,12 +65,13 @@ static double calcBcI2(double z, void* params) {
 
 double CoulombEnergy::operator ()(Shape& shape) {
 
-
     Params p = {.z1 = 1, .z2 = 1, .shape = shape, .goussFixedTable = GAUSS_FIXED_TABLE};
     const gsl_function function = {.function = calcBcI2, .params = &p};
+    return ec0_ * 15. / (4 * M_PI) * gsl_integration_glfixed(&function, -shape.getC(), shape.getC(), GAUSS_FIXED_TABLE);
+}
 
-
-    return 15. / (4 * M_PI) * gsl_integration_glfixed(&function, -shape.getC(), shape.getC(), GAUSS_FIXED_TABLE);
+double CoulombEnergy::ec0() {
+    return ec0_;
 }
 
 

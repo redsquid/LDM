@@ -17,12 +17,13 @@ SurfaceEnergyTest::~SurfaceEnergyTest() {}
 test::TestResult SurfaceEnergyTest::test() {
     const double eps = 1e-10;
 
-    const double expected = 0;
-    Shape shape(1., 0., 0.);
     SurfaceEnergy se(4, 2);
+    const double expected = se.es0();
+    Shape shape(1., 0., 0.);
     double res = se(shape);
 
     return fabs(res - expected) > eps ?
-                fail("Surface energy for spherical shape: expected: 0. actual: " + std::to_string(res))
+                fail("Surface energy for spherical shape: expected: " + std::to_string(se.es0()) +
+                     " actual: " + std::to_string(res))
               : success();
 }
