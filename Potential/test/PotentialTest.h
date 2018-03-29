@@ -4,6 +4,7 @@
 #include "utils/test/TestSuite.h"
 #include "test/CoulumbEnergyTest.h"
 #include "test/SurfaceEnergyTest.h"
+#include "test/RotationEnergyTest.h"
 
 class PotentialTest {
 public:
@@ -13,6 +14,7 @@ public:
         test::TestSuite suite;
         suite.registerTest(new SurfaceEnergyTest());
         suite.registerTest(new CoulumbEnergyTest());
+        suite.registerTest(new RotationEnergyTest());
         suite.runTests();
     }
 
