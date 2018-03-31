@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "test/PotentialMainTest.h"
+#include "test/potential/PotentialMainTest.h"
 
 using namespace std;
 

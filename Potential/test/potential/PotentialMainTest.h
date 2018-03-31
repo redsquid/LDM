@@ -2,10 +2,10 @@
 #define POTENTIALMAINTEST_H
 
 #include "utils/test/TestSuite.h"
-#include "test/CoulumbEnergyTest.h"
-#include "test/SurfaceEnergyTest.h"
-#include "test/RotationEnergyTest.h"
-#include "test/PotentialTest.h"
+#include "test/potential/CoulumbEnergyTest.h"
+#include "test/potential/SurfaceEnergyTest.h"
+#include "test/potential/RotationEnergyTest.h"
+#include "test/potential/PotentialTest.h"
 
 class PotentialMainTest {
 public:
