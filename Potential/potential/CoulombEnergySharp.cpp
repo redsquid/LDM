@@ -1,9 +1,9 @@
-#include "CoulombEnergy.h"
+#include "CoulombEnergySharp.h"
 
 #include <iostream>
 #include "const/Const.h"
 
-const size_t CoulombEnergy::ORDER = 32;
+const size_t CoulombEnergySharp::ORDER = 32;
 static double calcBcI2(double z, void* params);
 
 struct Params {
@@ -14,13 +14,13 @@ struct Params {
 };
 
 
-CoulombEnergy::CoulombEnergy(const uint A, const uint Z) :
+CoulombEnergySharp::CoulombEnergySharp(const uint A, const uint Z) :
 GAUSS_FIXED_TABLE(gsl_integration_glfixed_table_alloc(ORDER)),
 ec0_(3 / 5. * pow(Const::e, 2) * pow(Z, 2) / (Const::r0 * pow(A, 1 / 3.)))
 {
 }
 
-CoulombEnergy::~CoulombEnergy() {
+CoulombEnergySharp::~CoulombEnergySharp() {
     gsl_integration_glfixed_table_free(GAUSS_FIXED_TABLE);
 }
 
@@ -63,14 +63,14 @@ static double calcBcI2(double z, void* params) {
     return gsl_integration_glfixed(&function, -shape.getC(), z, gsft);
 }
 
-double CoulombEnergy::operator ()(const Shape& shape) const {
+double CoulombEnergySharp::operator ()(const Shape& shape) const {
 
     Params p = {.z1 = 1, .z2 = 1, .shape = shape, .goussFixedTable = GAUSS_FIXED_TABLE};
     const gsl_function function = {.function = calcBcI2, .params = &p};
     return ec0_ * 15. / (4 * M_PI) * gsl_integration_glfixed(&function, -shape.getC(), shape.getC(), GAUSS_FIXED_TABLE);
 }
 
-double CoulombEnergy::ec0() const {
+double CoulombEnergySharp::ec0() const {
     return ec0_;
 }
 

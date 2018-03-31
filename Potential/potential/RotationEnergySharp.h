@@ -1,14 +1,14 @@
-#ifndef ROTATIONENERGY_H
-#define ROTATIONENERGY_H
+#ifndef ROTATIONENERGYSHARP_H
+#define ROTATIONENERGYSHARP_H
 
 #include <cstdlib>
 #include "Shape.h"
 #include <gsl/gsl_integration.h>
 
-class RotationEnergy {
+class RotationEnergySharp {
 public:
-    RotationEnergy(const uint vA);
-    virtual ~RotationEnergy();
+    RotationEnergySharp(const uint vA);
+    virtual ~RotationEnergySharp();
     double operator() (const Shape& shape, const double vI, const double vK) const;
 
 private:
@@ -21,4 +21,4 @@ private:
 
 };
 
-#endif // ROTATIONENERGY_H
+#endif // ROTATIONENERGYSHARP_H

@@ -1,14 +1,14 @@
-#ifndef SURFACEENERGY_H
-#define SURFACEENERGY_H
+#ifndef SURFACEENERGYSHARP_H
+#define SURFACEENERGYSHARP_H
 
 #include <cstdlib>
 #include <gsl/gsl_integration.h>
 #include "Shape.h"
 
-class SurfaceEnergy {
+class SurfaceEnergySharp {
 public:
-    SurfaceEnergy(const uint A, const uint Z);
-    virtual ~SurfaceEnergy();
+    SurfaceEnergySharp(const uint A, const uint Z);
+    virtual ~SurfaceEnergySharp();
     double operator ()(const Shape& shape) const;
     double es0() const;
 private:
@@ -17,4 +17,4 @@ private:
     gsl_integration_glfixed_table* GAUSS_FIXED_TABLE;
 };
 
-#endif // SURFACEENERGY_H
+#endif // SURFACEENERGYSHARP_H

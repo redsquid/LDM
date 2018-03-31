@@ -1,14 +1,14 @@
-#ifndef COULOMBENERGY_H
-#define COULOMBENERGY_H
+#ifndef COULOMBENERGYSHARP_H
+#define COULOMBENERGYSHARP_H
 
 #include <cstdlib>
 #include <gsl/gsl_integration.h>
 #include "Shape.h"
 
-class CoulombEnergy {
+class CoulombEnergySharp {
 public:
-    CoulombEnergy(const uint A, const uint Z);
-    virtual ~CoulombEnergy();
+    CoulombEnergySharp(const uint A, const uint Z);
+    virtual ~CoulombEnergySharp();
     double operator ()(const Shape& shape) const;
     double ec0() const;
 private:
@@ -17,4 +17,4 @@ private:
     const double ec0_;
 };
 
-#endif // COULOMBENERGY_H
+#endif // COULOMBENERGYSHARP_H

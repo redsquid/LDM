@@ -1,23 +1,23 @@
-#include "SurfaceEnergyTest.h"
+#include "SurfaceEnergySharpTest.h"
 
 #include "potential/Shape.h"
-#include "potential/SurfaceEnergy.h"
+#include "potential/SurfaceEnergySharp.h"
 
 #include <iostream>
 #include <math.h>
 #include <string>
 
-SurfaceEnergyTest::SurfaceEnergyTest() :
+SurfaceEnergySharpTest::SurfaceEnergySharpTest() :
     Test("SurfaceEnergyTest")
 {
 }
 
-SurfaceEnergyTest::~SurfaceEnergyTest() {}
+SurfaceEnergySharpTest::~SurfaceEnergySharpTest() {}
 
-test::TestResult SurfaceEnergyTest::test() {
+test::TestResult SurfaceEnergySharpTest::test() {
     const double eps = 1e-10;
 
-    SurfaceEnergy se(4, 2);
+    SurfaceEnergySharp se(4, 2);
     const double expected = se.es0();
     Shape shape(1., 0., 0.);
     double res = se(shape);

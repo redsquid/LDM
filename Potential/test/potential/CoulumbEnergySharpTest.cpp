@@ -1,22 +1,22 @@
-#include "CoulumbEnergyTest.h"
+#include "CoulumbEnergySharpTest.h"
 
-#include "potential/CoulombEnergy.h"
+#include "potential/CoulombEnergySharp.h"
 #include "potential/Shape.h"
 
 #include <iostream>
 
-CoulumbEnergyTest::CoulumbEnergyTest() :
-Test("CoulombEnergyTest")
+CoulumbEnergySharpTest::CoulumbEnergySharpTest() :
+Test("CoulumbEnergySharpTest")
 {
 }
 
-CoulumbEnergyTest::~CoulumbEnergyTest() {}
+CoulumbEnergySharpTest::~CoulumbEnergySharpTest() {}
 
-test::TestResult CoulumbEnergyTest::test() {
+test::TestResult CoulumbEnergySharpTest::test() {
 
     const double eps = 1e-10;
 
-    CoulombEnergy se(4, 2);
+    CoulombEnergySharp se(4, 2);
     const double expected = se.ec0();
     Shape shape(1., 0., 0.);
     double res = se(shape);
