@@ -9,8 +9,8 @@ class CoulombEnergy {
 public:
     CoulombEnergy(const uint A, const uint Z);
     virtual ~CoulombEnergy();
-    double operator ()(Shape& shape);
-    double ec0();
+    double operator ()(const Shape& shape) const;
+    double ec0() const;
 private:
     static const size_t ORDER;
     gsl_integration_glfixed_table* GAUSS_FIXED_TABLE;

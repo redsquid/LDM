@@ -1,13 +1,13 @@
 #include <iostream>
 
-#include "test/PotentialTest.h"
+#include "test/PotentialMainTest.h"
 
 using namespace std;
 
 int main() {
 
 
-    PotentialTest::doTest();
+    PotentialMainTest::doTest();
 
     return 0;
 }

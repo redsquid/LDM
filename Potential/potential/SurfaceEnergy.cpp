@@ -16,12 +16,12 @@ SurfaceEnergy::~SurfaceEnergy() {
     gsl_integration_glfixed_table_free(GAUSS_FIXED_TABLE);
 }
 
-double SurfaceEnergy::operator ()(Shape& shape) {
-    const gsl_function function = {.function = calcBs, .params = &shape};
+double SurfaceEnergy::operator ()(const Shape& shape) const {
+    const gsl_function function = {.function = calcBs, .params = const_cast<Shape*>(&shape)};
     return es0_* 1 / 2. * gsl_integration_glfixed(&function, -shape.getC(), shape.getC(), GAUSS_FIXED_TABLE);
 }
 
-double SurfaceEnergy::es0() {
+double SurfaceEnergy::es0() const {
     return es0_;
 }
 

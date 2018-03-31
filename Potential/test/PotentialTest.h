@@ -1,23 +1,13 @@
 #ifndef POTENTIALTEST_H
 #define POTENTIALTEST_H
 
-#include "utils/test/TestSuite.h"
-#include "test/CoulumbEnergyTest.h"
-#include "test/SurfaceEnergyTest.h"
-#include "test/RotationEnergyTest.h"
+#include "utils/test/Test.h"
 
-class PotentialTest {
+class PotentialTest : public test::Test {
 public:
-    PotentialTest() = delete;
-
-    static void doTest() {
-        test::TestSuite suite;
-        suite.registerTest(new SurfaceEnergyTest());
-        suite.registerTest(new CoulumbEnergyTest());
-        suite.registerTest(new RotationEnergyTest());
-        suite.runTests();
-    }
-
+    PotentialTest();
+    virtual ~PotentialTest();
+    test::TestResult test() override;
 };
 
 #endif // POTENTIALTEST_H
