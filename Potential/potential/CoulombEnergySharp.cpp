@@ -65,7 +65,7 @@ static double calcBcI2(double z, void* params) {
 
 double CoulombEnergySharp::operator ()(const Shape& shape) const {
 
-    Params p = {.z1 = 1, .z2 = 1, .shape = shape, .goussFixedTable = GAUSS_FIXED_TABLE};
+    Params p = {.z1 = 0, .z2 = 0, .shape = shape, .goussFixedTable = GAUSS_FIXED_TABLE};
     const gsl_function function = {.function = calcBcI2, .params = &p};
     return ec0_ * 15. / (4 * M_PI) * gsl_integration_glfixed(&function, -shape.getC(), shape.getC(), GAUSS_FIXED_TABLE);
 }

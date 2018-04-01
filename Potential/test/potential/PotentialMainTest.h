@@ -6,6 +6,7 @@
 #include "test/potential/SurfaceEnergySharpTest.h"
 #include "test/potential/RotationEnergySharpTest.h"
 #include "test/potential/PotentialSharpTest.h"
+#include "test/potential/SurfacEenergyTest.h"
 
 class PotentialMainTest {
 public:
@@ -17,6 +18,7 @@ public:
         suite.registerTest(new CoulumbEnergySharpTest());
         suite.registerTest(new RotationEnergySharpTest());
         suite.registerTest(new PotentialSharpTest());
+        suite.registerTest(new SurfaceEnergyTest());
         suite.runTests();
     }
 

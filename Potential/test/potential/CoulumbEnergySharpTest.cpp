@@ -6,7 +6,7 @@
 #include <iostream>
 
 CoulumbEnergySharpTest::CoulumbEnergySharpTest() :
-Test("CoulumbEnergySharpTest")
+    Test("CoulumbEnergySharpTest")
 {
 }
 
