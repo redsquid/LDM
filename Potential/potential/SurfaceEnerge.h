@@ -1,9 +1,9 @@
 #ifndef SURFACEENERGE_H
 #define SURFACEENERGE_H
 
-#include <cstdlib>
-#include <gsl/gsl_integration.h>
 #include "Shape.h"
+
+#include <cstdlib>
 
 class SurfaceEnerge {
 public:
@@ -13,12 +13,10 @@ public:
     double operator ()(const Shape& shape) const;
     double e0() const;
 private:
-    static double calcBcI2(double z, void* params);
-    static double calcBcI3(double z, void* params);
-    static double fun(double fi, void* params);
-
-    static constexpr size_t ORDER = 32;
-    gsl_integration_glfixed_table* GAUSS_FIXED_TABLE;
+    double calcI1(const Shape& shape) const;
+    static double calcI2(double z, void* params);
+    static double calcI3(double z, void* params);
+    static double integrand(double fi, void* params);
 
     static constexpr double a = 0.68; // Fm Yukava potential parameter
     static constexpr double as = 21.13; // MeV
@@ -30,6 +28,15 @@ private:
     const double vR0_;
     const double cs_;
     const double e0_;
+
+    class Params {
+    public:
+        Params(double z1, double z2, double cs, const Shape& shape) : Z1(z1), Z2(z2), CS(cs), SHAPE(shape) {}
+        const double Z1;
+        const double Z2;
+        const double CS;
+        const Shape& SHAPE;
+    };
 
 };
 

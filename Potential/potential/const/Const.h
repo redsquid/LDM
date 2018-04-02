@@ -13,6 +13,7 @@ public:
     static constexpr double e = GSL_CONST_MKSA_ELECTRON_CHARGE;
     static constexpr double hbar = GSL_CONST_MKSA_PLANCKS_CONSTANT_HBAR;
     static constexpr double m0 = GSL_CONST_MKSA_UNIFIED_ATOMIC_MASS;
+
 };
 
 #endif // CONSTANTS_H

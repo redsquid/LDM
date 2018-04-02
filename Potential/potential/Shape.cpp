@@ -1,7 +1,5 @@
 #include "Shape.h"
-#include "utils/logger/Logger.h"
-#include <cmath>
-#include <vector>
+
 #include <gsl/gsl_math.h>
 
 Shape::Shape(const double _c, const double _h, const double _alpha) :
@@ -16,25 +14,17 @@ Shape::Shape(const double _c, const double _h, const double _alpha) :
 Shape::~Shape() {}
 
 double Shape::operator() (const double z) const {
-    return sqrt(calcShape(z));
+    return sqrt(pow2(z));
 }
 
 double Shape::pow2(const double z) const {
-    return calcShape(z);
-}
-
-double Shape::calcShape(const double z) const {
-
     double result = (b >= 0) ? (pow(c, 2) - pow(z, 2)) * (as + b * pow(z, 2) / pow(c, 2) + alpha * z / c) :
                                (pow(c, 2) - pow(z, 2)) * (as + alpha * z / c) * exp(b * c * pow(c, 2));
-
     return (result < 0) ? 0 : result;
 }
 
 double Shape::deriv(const double _z) const {
-
     const double eps = 1e-15;
-
     const double z = ((fabs(_z) - c) < eps || _z < eps) ? _z - GSL_SIGN(_z) * eps : _z;
 
     if(b >= 0) {
@@ -52,42 +42,16 @@ double Shape::deriv(const double _z) const {
     }
 }
 
-double Shape::getC() const {
+double Shape::q1() const {
     return c;
 }
 
 double Shape::calcB(const double c, const double h) {
-
     return 2 * h + (c - 1) / 2.;
 }
 
 double Shape::calcAs(const double c, const double b) {
-
-    if (b >= 0) {
-        return pow(c, -3) - b / 5.;
-    } else {
-        return -4 / 3. * b / (exp(b * pow(c, 3)) + (1 + 1 / (2 * b * pow(c, 3))) * sqrt(-M_PI * b * pow(c, 3))
-                              * erf(sqrt(-b * pow(c, 3))));
-    }
+    return (b >= 0) ? pow(c, -3) - b / 5. :
+            -4 / 3. * b / (exp(b * pow(c, 3)) + (1 + 1 / (2 * b * pow(c, 3)))
+                           * sqrt(-M_PI * b * pow(c, 3))* erf(sqrt(-b * pow(c, 3))));
 }
-
-void Shape::printShape(const double z1, const double z2, const unsigned int n) const {
-
-    const logger::Logger logger("Shape");
-    const double dz = (z2 - z1) / n;
-
-    for(unsigned int i = 0; i <= n; i++) {
-        logger.print(this->operator ()(z1 + i * dz));
-    }
-}
-
-void Shape::printDeriv(const double z1, const double z2, const unsigned int n) const {
-
-    const logger::Logger logger("dShape / dz");
-    const double dz = (z2 - z1) / n;
-
-    for(unsigned int i = 0; i < n; i++) {
-        logger.print(this->deriv(z1 + i * dz + dz / 2.));
-    }
-}
-

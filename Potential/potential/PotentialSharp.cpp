@@ -11,13 +11,11 @@ PotentialSharp::PotentialSharp(const uint vA, const uint vZ) :
 }
 
 PotentialSharp::~PotentialSharp() {
-
 }
 
 double PotentialSharp::operator() (const Shape& shape, const double vI, const double vK) {
     const SurfaceEnergySharp es(vA_, vZ_);
     const CoulombEnergySharp ec(vA_, vZ_);
     const RotationEnergySharp er(vA_);
-
     return (es(shape) - es.es0()) + (ec(shape) - ec.ec0()) + er(shape, vI, vK);
 }

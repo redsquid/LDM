@@ -1,9 +1,9 @@
 #ifndef COULOMBENERGYSHARP_H
 #define COULOMBENERGYSHARP_H
 
-#include <cstdlib>
-#include <gsl/gsl_integration.h>
 #include "Shape.h"
+
+#include <cstdlib>
 
 class CoulombEnergySharp {
 public:
@@ -11,9 +11,20 @@ public:
     virtual ~CoulombEnergySharp();
     double operator ()(const Shape& shape) const;
     double ec0() const;
+
 private:
-    static const size_t ORDER;
-    gsl_integration_glfixed_table* GAUSS_FIXED_TABLE;
+    class Params {
+    public:
+        Params(double z1, double z2, const Shape& shape) : Z1(z1), Z2(z2), SHAPE(shape) {}
+        const double Z1;
+        const double Z2;
+        const Shape& SHAPE;
+    };
+
+    static double calcI1(Params& p);
+    static double calcI2(double z, void* params);
+    static double calcI3(double z, void* params);
+    static double integrand(double teta, void* params);
     const double ec0_;
 };
 

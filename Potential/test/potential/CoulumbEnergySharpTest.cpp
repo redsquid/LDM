@@ -4,6 +4,7 @@
 #include "potential/Shape.h"
 
 #include <iostream>
+#include <math.h>
 
 CoulumbEnergySharpTest::CoulumbEnergySharpTest() :
     Test("CoulumbEnergySharpTest")

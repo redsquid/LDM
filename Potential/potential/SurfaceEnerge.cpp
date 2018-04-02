@@ -1,33 +1,51 @@
 #include "SurfaceEnerge.h"
-#include "const/Const.h"
 
-struct Params {
-    const double z1;
-    const double z2;
-    const double cs;
-    const Shape& shape;
-    gsl_integration_glfixed_table* goussFixedTable;
-};
+#include "const/Const.h"
+#include "const/GaussTable.h"
+
+#include <gsl/gsl_integration.h>
 
 SurfaceEnerge::SurfaceEnerge(const uint vA, const uint vZ , const double vEs0Sharp) :
-    GAUSS_FIXED_TABLE(gsl_integration_glfixed_table_alloc(ORDER)),
     vR0_(r0 * pow(vA, 1. / 3)),
     cs_(as * (1 - ks * pow(vA - 2 * vZ, 2) / pow(vA, 2))),
-    e0_(vEs0Sharp * (1 - 3 * pow(a / vR0_, 2) + (vR0_ / a + 1) * (2 + 3 * a / vR0_ + 3 * pow(a / vR0_, 2)) * exp(-2 * vR0_ / a)))
+    e0_(vEs0Sharp * (1 - 3 * pow(a / vR0_, 2) + (vR0_ / a + 1)
+                     * (2 + 3 * a / vR0_ + 3 * pow(a / vR0_, 2)) * exp(-2 * vR0_ / a)))
 {
 }
 
 SurfaceEnerge::~SurfaceEnerge() {
-    gsl_integration_glfixed_table_free(GAUSS_FIXED_TABLE);
 }
 
-double SurfaceEnerge::fun(double fi, void* params) {
+double SurfaceEnerge::operator ()(const Shape& shape) const {
+    return calcI1(shape);
+}
 
-    const Params p = *(static_cast<Params*>(params));
-    const double z1 = p.z1;
-    const double z2 = p.z2;
-    const double cs = p.cs;
-    const Shape& s = p.shape;
+double SurfaceEnerge::calcI1(const Shape& s) const {
+    Params p(0, 0, cs_, s);
+    const gsl_function function = {.function = calcI2, .params = &p};
+    return gsl_integration_glfixed(&function, -s.q1(), s.q1(), GaussTable::get());
+}
+
+double SurfaceEnerge::calcI2(double z, void* params) {
+    const Params& tmp = *(static_cast<Params*>(params));
+    Params p(z, 0, tmp.CS, tmp.SHAPE);
+    const gsl_function function = {.function = calcI3, .params = &p};
+    return gsl_integration_glfixed(&function, -tmp.SHAPE.q1(), tmp.SHAPE.q1(), GaussTable::get());
+}
+
+double SurfaceEnerge::calcI3(double z, void* params) {
+    const Params& tmp = *(static_cast<Params*>(params));
+    Params p(tmp.Z1, z, tmp.CS, tmp.SHAPE);
+    const gsl_function function = {.function = integrand, .params = &p};
+    return gsl_integration_glfixed(&function, 0, 2 * M_PI, GaussTable::get());
+}
+
+double SurfaceEnerge::integrand(double fi, void* params) {
+    const Params& p = *(static_cast<Params*>(params));
+    const double z1 = p.Z1;
+    const double z2 = p.Z2;
+    const double cs = p.CS;
+    const Shape& s = p.SHAPE;
 
     const double sigma = sqrt(pow((z1 - z2), 2) + s.pow2(z1) + s.pow2(z2) - 2 * s(z1) * s(z2) * cos(fi));
 
@@ -36,31 +54,6 @@ double SurfaceEnerge::fun(double fi, void* params) {
 
     return f * s(z1) * (s(z1) - s(z2) * cos(fi) - s.deriv(z1) * (z1 - z2))
             * s(z2) * (s(z2) -s(z1) * cos(fi) + s.deriv(z2) * (z1 - z2));
-}
-
-double SurfaceEnerge::calcBcI3(double z, void* params) {
-    const Params tmp = *(static_cast<Params*>(params));
-    const double z1 = tmp.z1;
-    const Shape& shape = tmp.shape;
-    gsl_integration_glfixed_table* gsft = tmp.goussFixedTable;
-    Params p = {.z1 = z1, .z2 = z, .cs = tmp.cs, .shape = shape, .goussFixedTable = gsft};
-    const gsl_function function = {.function = fun, .params = &p};
-    return gsl_integration_glfixed(&function, 0, 2 * M_PI, gsft);
-}
-
-double SurfaceEnerge::calcBcI2(double z, void* params) {
-    const Params tmp = *(static_cast<Params*>(params));
-    const Shape& shape = tmp.shape;
-    gsl_integration_glfixed_table* gsft = tmp.goussFixedTable;
-    Params p = {.z1 = z, .z2 = 0, .cs = tmp.cs, .shape = shape, .goussFixedTable = gsft};
-    const gsl_function function = {.function = calcBcI3, .params = &p};
-    return gsl_integration_glfixed(&function, -shape.getC(), -shape.getC(), gsft);
-}
-
-double SurfaceEnerge::operator ()(const Shape& shape) const {
-    Params p = {.z1 = 0, .z2 = 0, .cs = cs_, .shape = shape, .goussFixedTable = GAUSS_FIXED_TABLE};
-    const gsl_function function = {.function = calcBcI2, .params = &p};
-    return gsl_integration_glfixed(&function, -shape.getC(), shape.getC(), GAUSS_FIXED_TABLE);
 }
 
 double SurfaceEnerge::e0() const {

@@ -1,49 +1,39 @@
 #include "RotationEnergySharp.h"
 
-#include "math.h"
 #include "const/Const.h"
+#include "const/GaussTable.h"
 
-using C = Const;
-
-const size_t RotationEnergySharp::ORDER = 32;
-
-static double j_par(double z, void* params);
-
-static double j_perp(double z, void* params);
+#include <gsl/gsl_integration.h>
 
 RotationEnergySharp::RotationEnergySharp(const uint vA) :
-    GAUSS_FIXED_TABLE(gsl_integration_glfixed_table_alloc(ORDER)),
-    J0(2. / 5 * C::m0 * pow(C::r0, 2) * pow(vA, 5. / 3))
+    J0(2. / 5 * Const::m0 * pow(Const::r0, 2) * pow(vA, 5. / 3))
 {
 }
 
 RotationEnergySharp::~RotationEnergySharp() {
-    gsl_integration_glfixed_table_free(GAUSS_FIXED_TABLE);
 }
 
 double RotationEnergySharp::operator() (const Shape& shape, const double vI, const double vK) const {
-    return pow(C::hbar, 2) * pow(vK, 2) / (2 * getJpar(shape)) +
-            pow(C::hbar, 2) * (vI * (vI + 1) - pow(vK, 2)) / (2 * getJperp(shape));
+    return pow(Const::hbar, 2) * pow(vK, 2) / (2 * calcJpar(shape)) +
+            pow(Const::hbar, 2) * (vI * (vI + 1) - pow(vK, 2)) / (2 * calcJperp(shape));
 }
 
-double RotationEnergySharp::getJpar(const Shape& shape) const {
-    const gsl_function j_par_fun = {.function = j_par, .params = const_cast<Shape*>(&shape)};
-    return J0 * (15. / 16) * gsl_integration_glfixed(&j_par_fun, -shape.getC(), shape.getC(), GAUSS_FIXED_TABLE);
-
+double RotationEnergySharp::calcJpar(const Shape& shape) const {
+    const gsl_function function = {.function = jparIntegrand, .params = const_cast<Shape*>(&shape)};
+    return J0 * (15. / 16) * gsl_integration_glfixed(&function, -shape.q1(), shape.q1(), GaussTable::get());
 }
 
-double RotationEnergySharp::getJperp(const Shape& shape) const {
-    const gsl_function j_perp_fun = {.function = j_perp, .params = const_cast<Shape*>(&shape)};
-    return J0 * (15. / 32) * gsl_integration_glfixed(&j_perp_fun, -shape.getC(), shape.getC(), GAUSS_FIXED_TABLE);
-
+double RotationEnergySharp::calcJperp(const Shape& shape) const {
+    const gsl_function function = {.function = jperpIntegrand, .params = const_cast<Shape*>(&shape)};
+    return J0 * (15. / 32) * gsl_integration_glfixed(&function, -shape.q1(), shape.q1(), GaussTable::get());
 }
 
-static double j_par(double z, void* params) {
-    Shape& shape = *(static_cast<Shape*>(params));
-    return pow(shape(z), 4);
+double RotationEnergySharp::jparIntegrand(double z, void* params) {
+    Shape& s = *(static_cast<Shape*>(params));
+    return pow(s(z), 4);
 }
 
-static double j_perp(double z, void* params) {
-    Shape& shape = *(static_cast<Shape*>(params));
-    return pow(shape(z), 2) * (4 * pow(z, 2) + pow(shape(z), 2));
+double RotationEnergySharp::jperpIntegrand(double z, void* params) {
+    Shape& s = *(static_cast<Shape*>(params));
+    return pow(s(z), 2) * (4 * pow(z, 2) + pow(s(z), 2));
 }
