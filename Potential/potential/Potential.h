@@ -1,14 +1,14 @@
-#ifndef POTENTIALSHARP_H
-#define POTENTIALSHARP_H
+#ifndef POTENTIAL_H
+#define POTENTIAL_H
 
 #include "Shape.h"
 
 #include <cstdlib>
 
-class PotentialSharp {
+class Potential {
 public:
-    PotentialSharp(const uint vA, const uint vZ);
-    virtual ~PotentialSharp();
+    Potential(const uint vA, const uint vZ);
+    virtual ~Potential();
     double operator() (const Shape& shape, const double vI, const double vK);
 
 private:

@@ -2,6 +2,7 @@
 #define CONSTANTS_H
 
 #include "gsl/gsl_const_mksa.h"
+#include "gsl/gsl_const.h"
 
 class Const {
 public:
@@ -10,10 +11,9 @@ public:
     static constexpr double as = 17.9439; //MeV
     static constexpr double ks = 1.7826;
 
-    static constexpr double e = GSL_CONST_MKSA_ELECTRON_CHARGE;
-    static constexpr double hbar = GSL_CONST_MKSA_PLANCKS_CONSTANT_HBAR;
-    static constexpr double m0 = GSL_CONST_MKSA_UNIFIED_ATOMIC_MASS;
-
+    static constexpr double e = 1;
+    static constexpr double hpl = 0.6582119514; //MeV * (s * 10^-21)
+    static constexpr double m0 = 931.4940954; //MeV
 };
 
 #endif // CONSTANTS_H

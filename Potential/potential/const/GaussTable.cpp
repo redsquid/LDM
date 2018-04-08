@@ -5,7 +5,6 @@ GaussTable GaussTable::INSTANCE(GaussTable::ORDER);
 GaussTable::GaussTable(uint order) :
     GAUSS_TABLE(gsl_integration_glfixed_table_alloc(order))
 {
-
 }
 
 GaussTable::~GaussTable() {
@@ -13,6 +12,5 @@ GaussTable::~GaussTable() {
 }
 
 const gsl_integration_glfixed_table* GaussTable::get() {
-
     return INSTANCE.GAUSS_TABLE;
 }

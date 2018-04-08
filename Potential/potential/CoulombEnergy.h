@@ -1,17 +1,15 @@
-#ifndef SURFACEENERGE_H
-#define SURFACEENERGE_H
+#ifndef COULOMBENERGY_H
+#define COULOMBENERGY_H
 
-#include "Shape.h"
+#include "CoulombEnergySharp.h"
 
-#include <cstdlib>
-
-class SurfaceEnerge {
+class CoulombEnergy {
 public:
-    SurfaceEnerge(const uint vA, const uint vZ , const double vEs0Sharp);
-    virtual ~SurfaceEnerge();
+    CoulombEnergy(const uint vA, const uint vZ);
+    virtual ~CoulombEnergy();
 
     double operator ()(const Shape& shape) const;
-    double e0() const;
+    double ec0() const;
 private:
     double calcI1(const Shape& shape) const;
     static double calcI2(double z, void* params);
@@ -25,19 +23,20 @@ private:
     static constexpr double am = 0.704; //Fm
     static constexpr double ad = 0.704; //Fm
 
+    const CoulombEnergySharp ecSharp;
+
     const double vR0_;
-    const double cs_;
-    const double e0_;
 
     class Params {
     public:
-        Params(double z1, double z2, double cs, const Shape& shape) : Z1(z1), Z2(z2), CS(cs), SHAPE(shape) {}
+        Params(double z1, double z2, double vR0, double ec0, const Shape& shape) :
+            Z1(z1), Z2(z2), R0(vR0), EC0(ec0), SHAPE(shape) {}
         const double Z1;
         const double Z2;
-        const double CS;
+        const double R0;
+        const double EC0;
         const Shape& SHAPE;
     };
-
 };
 
-#endif // SURFACEENERGE_H
+#endif // COULOMBENERGY_H

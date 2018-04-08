@@ -1,6 +1,6 @@
 #include "SurfacEenergyTest.h"
 
-#include "potential/SurfaceEnerge.h"
+#include "potential/SurfaceEnergy.h"
 
 SurfaceEnergyTest::SurfaceEnergyTest() :
     Test("SurfaceEnergyTest")
@@ -13,7 +13,7 @@ SurfaceEnergyTest::~SurfaceEnergyTest() {
 
 test::TestResult SurfaceEnergyTest::test() {
 
-    SurfaceEnerge se();
+    //SurfaceEnergy se();
 
     return fail("Test is not implemented");
 }
