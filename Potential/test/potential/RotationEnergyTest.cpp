@@ -1,10 +1,8 @@
 #include "RotationEnergyTest.h"
 
-#include "potential/RotationEnergy.h"
-#include <iostream>
-
 RotationEnergyTest::RotationEnergyTest() :
-    Test("RotationEnergySharpTest")
+    Test("RotationEnergyTest"),
+    re(A, Z)
 {
 }
 
@@ -14,17 +12,17 @@ RotationEnergyTest::~RotationEnergyTest() {
 
 test::TestResult RotationEnergyTest::test() {
 
+    bool result =  doTest(0.50, 0.2, -0.5, 0.100)
+                && doTest(0.75, 0.2, -0.5, 0.123)
+                && doTest(1.75, 0.2, -0.5, 0.123)
+                && doTest(2.75, 0.2, -0.5, 0.119)
+                && doTest(3.75, 0.2, -0.5, 0.119)
+                && doTest(4.50, 0.2, -0.5, 0.121);
 
-//    double vI = 50;
-//    double vK = 13;
-//    RotationEnergy re(224);
+    return result ? success() : fail("Wrong surface energy");
+}
 
-//    const double expected = 0;
-//    Shape shape(1.5, 0., 0.);
-//    double res = re(shape, vI, vK);
-
-    //std::cout << res << std::endl;
-
-    return fail("Test is not implemented");
-
+bool RotationEnergyTest::doTest(const double q1, const double q2, const double q3, const double expected) const {
+    const Shape shape(q1, q2, q3);
+    return fabs(re(shape, L, K) - expected) < EPS;
 }

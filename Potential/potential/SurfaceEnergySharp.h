@@ -5,12 +5,15 @@
 
 #include <cstdlib>
 
+/**
+ * LDM W. D. Myers, W. J. Swiatecki
+ *
+ */
 class SurfaceEnergySharp {
 public:
     SurfaceEnergySharp(const uint A, const uint Z);
     virtual ~SurfaceEnergySharp();
     double operator ()(const Shape& shape) const;
-    double es0() const;
 
 private:
     static double calcIntegral(const Shape& shape);
@@ -20,7 +23,6 @@ private:
     static constexpr double ks = 1.7826;
 
     const double es0_;
-
 };
 
 #endif // SURFACEENERGYSHARP_H

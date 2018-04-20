@@ -9,7 +9,7 @@ class Potential {
 public:
     Potential(const uint vA, const uint vZ);
     virtual ~Potential();
-    double operator() (const Shape& shape, const double vI, const double vK);
+    double operator() (const Shape& shape, const double vL, const double vK);
 
 private:
     const int vA_;

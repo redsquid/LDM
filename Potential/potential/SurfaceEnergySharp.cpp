@@ -13,12 +13,12 @@ SurfaceEnergySharp::~SurfaceEnergySharp() {
 }
 
 double SurfaceEnergySharp::operator ()(const Shape& shape) const {
-    return 1. / 2 * calcIntegral(shape) * es0_;
+    return (1. / 2 * calcIntegral(shape) - 1) * es0_;
 }
 
 double SurfaceEnergySharp::calcIntegral(const Shape& shape) {
     const gsl_function function = {.function = integrand, .params = const_cast<Shape*>(&shape)};
-    return gsl_integration_glfixed(&function, -shape.getC(), shape.getC(), GaussTable::get());
+    return gsl_integration_glfixed(&function, -shape.zmax(), shape.zmax(), GaussTable::get());
 }
 
 double SurfaceEnergySharp::integrand(double z, void* params) {
@@ -26,6 +26,3 @@ double SurfaceEnergySharp::integrand(double z, void* params) {
     return shape(z) * sqrt(1 + pow(shape.deriv(z), 2));
 }
 
-double SurfaceEnergySharp::es0() const {
-    return es0_;
-}

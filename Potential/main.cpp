@@ -9,10 +9,7 @@ using namespace std;
 
 int main() {
 
-
     PotentialMainTest::doTest();
-
-
     return 0;
 }
 

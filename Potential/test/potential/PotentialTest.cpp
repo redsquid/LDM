@@ -18,8 +18,8 @@ test::TestResult PotentialTest::test() {
 
     Potential potential(252, 100);
 
-    double vI = 0;
-    double vK = 0;
+    double vL = 6;
+    double vK = 3;
 
 
 //   Shape shape(1, 0., 0.);
@@ -45,9 +45,9 @@ test::TestResult PotentialTest::test() {
 //    }
 
 
-    for (double c = 0.5; c < 2.1; c += 0.05) {
-        Shape shape(c, 0, 0);
-        std::cout << c << " " << potential(shape, vI, vK) << std::endl;
+    for (double q1 = 0.5; q1 < 4.5; q1 += 0.05) {
+        Shape shape(q1, 0.2, -0.5);
+        std::cout << q1 << " " << potential(shape, vL, vK) << std::endl;
 
     }
 

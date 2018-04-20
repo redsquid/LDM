@@ -6,7 +6,7 @@
 
 double Volume::calculate(const Shape& shape) {
     const gsl_function function = {.function = integrand, .params = const_cast<Shape*>(&shape)};
-    return M_PI *  gsl_integration_glfixed(&function, -shape.getC(), shape.getC(), GaussTable::get());
+    return M_PI *  gsl_integration_glfixed(&function, -shape.zmax(), shape.zmax(), GaussTable::get());
 }
 
 double  Volume::integrand(double z, void* params) {

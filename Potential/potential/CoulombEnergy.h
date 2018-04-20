@@ -16,16 +16,16 @@ private:
     static double calcI3(double z, void* params);
     static double integrand(double fi, void* params);
 
-    static constexpr double a = 0.68; // Fm Yukava potential parameter
-    static constexpr double as = 21.13; // MeV
-    static constexpr double ks = 2.3;
     static constexpr double r0 = 1.16;  // Fm
-    static constexpr double am = 0.704; //Fm
-    static constexpr double ad = 0.704; //Fm
-
-    const CoulombEnergySharp ecSharp;
+    static constexpr double pac = 0.7448154;
+    static constexpr double ac = 0.704;
 
     const double vR0_;
+    const double ec0_;
+    const double dec_;
+
+
+
 
     class Params {
     public:

@@ -12,11 +12,11 @@ Test::~Test() {
 
 }
 
-TestResult Test::fail(std::string message) {
+TestResult Test::fail(std::string message) const {
     return TestResult(name, message, false);
 }
 
-TestResult Test::success() {
+TestResult Test::success() const {
     return TestResult(name, true);
 }
 

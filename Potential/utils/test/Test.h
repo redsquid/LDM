@@ -12,8 +12,8 @@ public:
     virtual ~Test();
 protected:
 
-    TestResult fail(std::string message);
-    TestResult success();
+    TestResult fail(std::string message) const;
+    TestResult success() const;
 
 private:
     const std::string name;

@@ -5,12 +5,15 @@
 
 #include <cstdlib>
 
+/**
+ * LDM W. D. Myers, W. J. Swiatecki
+ *
+ */
 class CoulombEnergySharp {
 public:
     CoulombEnergySharp(const uint A, const uint Z);
     virtual ~CoulombEnergySharp();
     double operator ()(const Shape& shape) const;
-    double ec0() const;
 
 private:
     class Params {

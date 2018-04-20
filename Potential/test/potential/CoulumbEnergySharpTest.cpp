@@ -4,7 +4,8 @@
 #include "potential/Shape.h"
 
 CoulumbEnergySharpTest::CoulumbEnergySharpTest() :
-    Test("CoulumbEnergySharpTest")
+    Test("CoulumbEnergySharpTest"),
+    ce(A, Z)
 {
 }
 
@@ -12,20 +13,16 @@ CoulumbEnergySharpTest::~CoulumbEnergySharpTest() {}
 
 test::TestResult CoulumbEnergySharpTest::test() {
 
-    const double eps = 1;
+    bool result =  doTest(0.50,  -96.666)
+                && doTest(0.75,  -18.720)
+                && doTest(1.00,    0.000)
+                && doTest(1.50,  -54.722)
+                && doTest(2.05, -227.068);
 
-    CoulombEnergySharp se(252, 100);
+    return result ? success() : fail("Wrong coulumb energy");
+}
 
-    const double e1 = -96.6656; //0.5
-    const double e2 = -9.17679; //1.2
-    const double e3 = -211.291; //2
-
-    Shape s1(0.5, 0., 0.);
-    Shape s2(1.2, 0., 0.);
-    Shape s3(2.0, 0., 0.);
-
-    return ((fabs(se(s1) - se.ec0() - e1) > eps) ||
-            (fabs(se(s2) - se.ec0() - e2) > eps) ||
-            (fabs(se(s3) - se.ec0() - e3) > eps)) ?
-                fail("Wrong coulumb energy") : success();
+bool CoulumbEnergySharpTest::doTest(double c, double expected) {
+    const Shape shape(c);
+    return fabs(ce(shape) - expected) < EPS;
 }

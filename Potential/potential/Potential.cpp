@@ -2,11 +2,13 @@
 
 #include "SurfaceEnergy.h"
 #include "CoulombEnergy.h"
-#include "RotationEnergy.h"
+#include "RotationEnergySharp.h"
 
 #include "CoulombEnergySharp.h"
 #include <iostream>
 #include "SurfaceEnergySharp.h"
+
+#include "RotationEnergy.h"
 
 Potential::Potential(const uint vA, const uint vZ) :
     vA_(vA),
@@ -17,13 +19,16 @@ Potential::Potential(const uint vA, const uint vZ) :
 Potential::~Potential() {
 }
 
-double Potential::operator() (const Shape& shape, const double vI, const double vK) {
-    const SurfaceEnergy es(vA_, vZ_);
-    const CoulombEnergy ec(vA_, vZ_);
-    const RotationEnergy er(vA_);
+double Potential::operator() (const Shape& shape, const double vL, const double vK) {
+    //const SurfaceEnergy es(vA_, vZ_);
+    //const CoulombEnergy ec(vA_, vZ_);
+    const RotationEnergy re(vA_, vZ_);
 
-    const CoulombEnergySharp ecsharp(vA_, vZ_);
-    const SurfaceEnergySharp essharp(vA_, vZ_);
+    //const CoulombEnergySharp ecsharp(vA_, vZ_);
+    //const SurfaceEnergySharp essharp(vA_, vZ_);
+    //const RotationEnergySharp er(vA_);
 
-    return ecsharp(shape) - ecsharp.ec0(); //essharp(shape) - essharp.es0() + ecsharp(shape) - ecsharp.ec0(); // + er(shape, vI, vK);
+    return re(shape, vL, vK); //ec(shape); //essharp(shape) - essharp.es0() + es(shape);
+    //essharp(shape) - essharp.es0() + ecsharp(shape) - ecsharp.ec0();
+    // + er(shape, vI, vK);
 }

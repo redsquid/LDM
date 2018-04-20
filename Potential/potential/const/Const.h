@@ -12,7 +12,7 @@ public:
     static constexpr double ks = 1.7826;
 
     static constexpr double e = 1;
-    static constexpr double hpl = 0.6582119514; //MeV * (s * 10^-21)
+    static constexpr double hpl = 0.6582119514; //MeV * (s * 1e-21)
     static constexpr double m0 = 931.4940954; //MeV
 };
 
