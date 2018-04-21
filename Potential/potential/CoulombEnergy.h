@@ -9,12 +9,13 @@ public:
     virtual ~CoulombEnergy();
 
     double operator ()(const Shape& shape) const;
-    double ec0() const;
 private:
     double calcI1(const Shape& shape) const;
     static double calcI2(double z, void* params);
     static double calcI3(double z, void* params);
-    static double integrand(double fi, void* params);
+
+    static double integrandBc(double fi, void* params);
+    static double integrandDbc(double fi, void* params);
 
     static constexpr double r0 = 1.16;  // Fm
     static constexpr double pac = 0.7448154;

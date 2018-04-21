@@ -21,14 +21,14 @@ Potential::~Potential() {
 
 double Potential::operator() (const Shape& shape, const double vL, const double vK) {
     //const SurfaceEnergy es(vA_, vZ_);
-    //const CoulombEnergy ec(vA_, vZ_);
-    const RotationEnergy re(vA_, vZ_);
+    const CoulombEnergy ce(vA_, vZ_);
+    //const RotationEnergy re(vA_, vZ_);
 
     //const CoulombEnergySharp ecsharp(vA_, vZ_);
     //const SurfaceEnergySharp essharp(vA_, vZ_);
     //const RotationEnergySharp er(vA_);
 
-    return re(shape, vL, vK); //ec(shape); //essharp(shape) - essharp.es0() + es(shape);
+    return ce(shape);//re(shape, vL, vK); //essharp(shape) - essharp.es0() + es(shape);
     //essharp(shape) - essharp.es0() + ecsharp(shape) - ecsharp.ec0();
     // + er(shape, vI, vK);
 }

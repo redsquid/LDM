@@ -23,11 +23,11 @@ void TestSuite::runTests() {
     for (auto test : tests) {
         TestResult result = test->test();
 
-        std::cout << result.getName() << ":\t";
-        std::string str = result.isSuccess() ? "OK" : std::string("ERROR:\n\t") + result.getMessage();
+        std::string str = result.isSuccess() ? "  OK\t" + result.getName()
+                : std::string("  ERROR\t") + result.getName() + "\n" + result.getMessage();
+
         std::cout << str << std::endl;
     }
-
 }
 
 }

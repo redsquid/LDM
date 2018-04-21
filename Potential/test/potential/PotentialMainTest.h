@@ -24,12 +24,11 @@ public:
         suite.registerTest(new SurfaceEnergyTest());
         suite.registerTest(new CoulumbEnergyTest());
         suite.registerTest(new RotationEnergyTest());
+        suite.registerTest(new VolumeTest());
 
         //suite.registerTest(new PotentialTest());
-        //suite.registerTest(new VolumeTest());
         suite.runTests();
     }
-
 };
 
 #endif // POTENTIALMAINTEST_H
