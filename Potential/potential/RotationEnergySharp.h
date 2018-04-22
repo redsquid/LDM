@@ -24,15 +24,10 @@ private:
     static double jperpIntegrand(double z, void* params);
 
     static constexpr double r0 = 1.2249; //fm
-    //static constexpr double am = 0.704; // fm  [29]
+    static constexpr double m0 = 0.01044893;
 
     const double J0;
     const double er0;
-
-    //const double mass;
-
-    static constexpr double m0 = 0.01044893;
-
 };
 
 #endif // ROTATIONENERGYSHARP_H

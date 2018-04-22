@@ -7,8 +7,8 @@ class CoulombEnergy {
 public:
     CoulombEnergy(const uint vA, const uint vZ);
     virtual ~CoulombEnergy();
-
     double operator ()(const Shape& shape) const;
+
 private:
     double calcI1(const Shape& shape) const;
     static double calcI2(double z, void* params);
@@ -24,20 +24,6 @@ private:
     const double vR0_;
     const double ec0_;
     const double dec_;
-
-
-
-
-    class Params {
-    public:
-        Params(double z1, double z2, double vR0, double ec0, const Shape& shape) :
-            Z1(z1), Z2(z2), R0(vR0), EC0(ec0), SHAPE(shape) {}
-        const double Z1;
-        const double Z2;
-        const double R0;
-        const double EC0;
-        const Shape& SHAPE;
-    };
 };
 
 #endif // COULOMBENERGY_H

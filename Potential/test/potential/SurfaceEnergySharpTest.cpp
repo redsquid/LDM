@@ -3,7 +3,7 @@
 #include "potential/Shape.h"
 
 SurfaceEnergySharpTest::SurfaceEnergySharpTest() :
-    Test("SurfaceEnergyTest"),
+    Test("SurfaceEnergySharpTest"),
     se(A, Z)
 {
 }

@@ -5,26 +5,21 @@
 
 #include <gsl/gsl_integration.h>
 
-#include <iostream>
 RotationEnergySharp::RotationEnergySharp(const uint vA) :
     J0(2. / 5 * m0 * pow(r0, 2) * pow(vA, 5. / 3)),
     er0(0.5 * Const::hpl * Const::hpl / J0)
-    //mass(m0 * vA)
 {
-
 }
 
 RotationEnergySharp::~RotationEnergySharp() {
 }
 
 double RotationEnergySharp::operator() (const Shape& shape, const int vL, const int vK) const {
-
     const double jpar = calcJpar(shape);
-    const double jperp = calcJperp(shape) - 2.5 * pow(shape.zcm(), 2);
-
-    double bj_ldm = 1. / jperp;
-    double bk_ldm = (jperp - jpar) * bj_ldm / jpar;
-    return er0 * vL * vL * bj_ldm + er0 * bk_ldm * vK * vK;
+    const double jperp = calcJperp(shape) - 5. / 2 * pow(shape.zcm(), 2);
+    const double j = 1. / jperp;
+    const double k = (jperp - jpar) * j / jpar;
+    return er0 * pow(vL, 2) * j + er0 * k * pow(vK, 2);
 }
 
 double RotationEnergySharp::calcJpar(const Shape& shape) const {

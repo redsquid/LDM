@@ -3,17 +3,20 @@
 
 #include "Shape.h"
 
-#include <cstdlib>
+#include "SurfaceEnergy.h"
+#include "CoulombEnergy.h"
+#include "RotationEnergy.h"
 
 class Potential {
 public:
     Potential(const uint vA, const uint vZ);
     virtual ~Potential();
-    double operator() (const Shape& shape, const double vL, const double vK);
+    double operator() (const Shape& shape, const double vL, const double vK) const;
 
 private:
-    const int vA_;
-    const int vZ_;
+    const SurfaceEnergy se;
+    const CoulombEnergy ce;
+    const RotationEnergy re;
 };
 
 #endif // POTENTIALSHARP_H

@@ -9,8 +9,10 @@ public:
     Shape(const double q1, const double q2, const double q3);
     // {c, h = 0, a = 0}
     Shape(const double c);
+    Shape(const Shape& shape);
     virtual ~Shape();
     double operator() (const double z) const;
+    double value(const double z) const;
     double pow2(const double z) const;
     double deriv(const double z) const;
     double zmin() const;

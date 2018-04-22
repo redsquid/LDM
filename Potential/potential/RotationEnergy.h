@@ -7,6 +7,10 @@
 
 #include "const/Const.h"
 
+/**
+ * FRLDM
+ *
+ */
 class RotationEnergy {
 public:
     RotationEnergy(const uint vA, const uint vZ);
@@ -20,13 +24,11 @@ private:
     static double jperpIntegrand(double z, void* params);
 
     static constexpr double r0 = 1.16; //fm
-    static constexpr double ac = 0.704; // fm  [29]
+    static constexpr double ac = 0.704; //fm
 
     const double m0;
     const double J0;
     const double er0;
-
-    //const double mass;
     const double vR0_;
 };
 
