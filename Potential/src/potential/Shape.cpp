@@ -20,6 +20,15 @@ Shape::Shape(const double c) :
 {
 }
 
+Shape::Shape(const Coordinates::CHA coordinates) :
+	c_(coordinates.c()),
+	h_(coordinates.h()),
+	b_(calcB(c_, h_)),
+    as_(calcAs(c_, b_)),
+	a_(coordinates.a())
+{
+}
+
 Shape::Shape(const Shape& shape) :
     c_(shape.c_),
     h_(shape.h_),

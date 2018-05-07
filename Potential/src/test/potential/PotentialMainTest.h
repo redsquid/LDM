@@ -11,6 +11,8 @@
 #include "test/potential/PotentialTest.h"
 #include "test/potential/VolumeTest.h"
 
+#include "test/potential/FreeEnergyTest.h"
+
 class PotentialMainTest {
 public:
     PotentialMainTest() = delete;
@@ -25,6 +27,8 @@ public:
         suite.registerTest(new CoulumbEnergyTest());
         suite.registerTest(new RotationEnergyTest());
         suite.registerTest(new VolumeTest());
+
+        suite.registerTest(new FreeEnergyTest());
 
         //suite.registerTest(new PotentialTest());
         suite.runTests();

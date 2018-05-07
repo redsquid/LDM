@@ -3,13 +3,16 @@
 
 #include <math.h>
 
+#include "Coordinates.h"
+
 class Shape {
 public:
     // {q1, q2, q3} q1 - [0.5; 4.5] q2 - [0; 1] q3 - [-1; 1]
     Shape(const double q1, const double q2, const double q3);
     // {c, h = 0, a = 0}
     Shape(const double c);
-    Shape(const Shape& shape);
+    Shape(const Coordinates::CHA coordinates);
+	Shape(const Shape& shape);
     virtual ~Shape();
     double operator() (const double z) const;
     double value(const double z) const;
@@ -18,8 +21,6 @@ public:
     double zmin() const;
     double zmax() const;
     double zcm() const;
-
-    double deriv2(const double z) const;
 
 private:
     double calcShape(const double z) const;

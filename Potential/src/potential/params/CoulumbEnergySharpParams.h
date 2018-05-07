@@ -6,8 +6,8 @@ public:
     CoulumbEnergySharpParams();
     virtual ~CoulumbEnergySharpParams();
 
-    const double R0;
-    const double PACK;
+    //const double R0;
+    //const double PACK;
 };
 
 #endif // COULUMBENERGYSHARPPARAMS_H
