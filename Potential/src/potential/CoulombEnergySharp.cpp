@@ -61,6 +61,6 @@ double CoulombEnergySharp::integrand(double teta, void* params) {
     const double ro2 = p->ro2;
     const double ro1pow2 = p->ro1pow2;
     const double ro2pow2 = p->ro2pow2;
-    double f = sqrt(ro1pow2 + ro1pow2 - 2 * ro1 * ro2 * cos(teta) + pow((z1 - z2), 2));
+    double f = sqrt(ro1pow2 + ro2pow2 - 2 * ro1 * ro2 * cos(teta) + pow((z1 - z2), 2));
     return ro1pow2 * ro2pow2 * pow(sin(teta), 2) / (z1 - z2 + f) ;
 }
