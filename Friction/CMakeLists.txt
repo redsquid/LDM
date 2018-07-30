@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
 
-# так пишутся комментарии
-
 project(example)
 
 find_library(GSL_LIBRARY gsl)
@@ -21,10 +19,6 @@ set(SRC_DIR src)
 set(LDM_SRC 
 	${SRC_DIR}/main.cpp
 
-	${SRC_DIR}/mass/A.h
-	${SRC_DIR}/mass/Mass.h
-	${SRC_DIR}/mass/Mass.cpp
-
 	${SRC_DIR}/shape/Shape.h
 	${SRC_DIR}/shape/Shape.cpp
 	${SRC_DIR}/shape/factories/IShapeFactory.h
@@ -35,11 +29,6 @@ set(LDM_SRC
 	${SRC_DIR}/gauss/GaussTable.h
 	${SRC_DIR}/gauss/GaussTable.cpp
 
-	#${SRC_DIR}/utils/logger/Logger.h
-
-	#${SRC_DIR}/utils/test/Test.cpp
-	#${SRC_DIR}/utils/test/TestResult.cpp
-	#${SRC_DIR}/utils/test/TestSuite.cpp
 )
 
 
