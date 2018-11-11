@@ -22,9 +22,9 @@ public:
     double zmax() const;
     double zcm() const;
 
-	double ac(const double z) const;
-	double ah(const double z) const;
-	double aa(const double z) const;
+//	double ac(const double z) const;
+//	double ah(const double z) const;
+//	double aa(const double z) const;
 private:
 //    double calcShape(const double z) const;
     static double calcB(const double c, const double h);

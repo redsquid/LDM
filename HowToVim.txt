@@ -1,0 +1,56 @@
+
+
+
+
+
+My settings
+
+F4 - compile
+F5 - run
+F12 -toggle nerd tree
+F2 - switch between .h and .cpp  *1
+gf - go to file under cursor (gf - go to file)
+ctrl + z to console, fg return to vim
+
+
+v - select
+
+(ctags)
+ctrl + ] - go to implementation
+
+create tags:
+ctags -R --c++-kinds=+p --fields=+iaS --extra=+q
+
+
+
+
+Ctrl+w v — ( :vsplit ) разделить окно по вертикали
+Ctrl+w s — ( :split ) разделить окно по горизонтали
+Ctrl+w f — разделить окно и в новом открыть файл, имя и путь к которому находится под курсором
+Ctrl+w q или c — закрыть текущее окно
+Ctrl+w n — создать новое окно ( :new filename )
+
+CTRL-^ - к предыдущему открытому файлу
+:e#n - к буферу № n
+:bn — открыть в текущем окне следующий буфер
+:bp — предыдущий
+:ls — просмотреть список открытых буферов
+:b имя_буфера — переключиться на буфер открытого файла, работает автодополнение по Tab.
+:bd имя_буфера — удалить буфер по имени:bd — удалить текущий буфер, либо выйти из vim, если этот буфер единственное окно.
+
+ctrl + Right - bn
+ctrl + Left - bp
+
+:w [fname]                записать изменения
+:wa                       сохранить изменения во всех файлах
+:q                        выйти из редактора
+:q!                       выйти из редактора, не сохраняя изменения
+
+
+
+
+*1
+FSwitch - switch between h, cpp etc: This script is now maintained at https://github.com/derekwyatt/vim-fswitch
+
+NERDTree
+r/R - reload dir/all tree

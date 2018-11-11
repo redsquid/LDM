@@ -60,22 +60,6 @@ double Shape::deriv(const double _z) const {
     return (this->operator ()(z + dz) - this->operator ()(z - dz)) / (2 * dz);
 }
 
-
-double Shape::ac(const double z) const {
-
-	return z;
-}
-
-double Shape::ah(const double z) const {
-	
-	return z;
-}
-
-double Shape::aa(const double z) const {
-
-	return z;
-}
-
 double Shape::zmin() const {
     return -c_;
 }
