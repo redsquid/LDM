@@ -44,9 +44,9 @@ double Shape::operator() (const double z) const {
     return sqrt(pow2(z));
 }
 
-//double Shape::value(const double z) const {
-//    return sqrt(pow2(z));
-//}
+double Shape::value(const double z) const {
+    return sqrt(pow2(z));
+}
 
 double Shape::pow2(const double z) const {
     double result = (b_ >= 0) ? (pow(c_, 2) - pow(z, 2)) * (as_ + b_ * pow(z, 2) / pow(c_, 2) + a_ * z / c_) :

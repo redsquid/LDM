@@ -26,7 +26,6 @@ flags = [
 'c++',
 '-Isrc/',
 '-I../lib/ldmtest/include/'
-'-I../lib/ldmshape/include/'
 ]
 
 # Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,

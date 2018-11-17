@@ -8,7 +8,7 @@
 #include <gsl/gsl_deriv.h>
 
 
-#include "shape/factories/CShapeFactory.h"
+#include "factories/CShapeFactory.h"
 
 struct Params {
 	A* a1;

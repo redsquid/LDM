@@ -4,8 +4,8 @@
 #include <cstdlib>
 
 #include "A.h"
-#include "shape/Shape.h"
-#include "shape/factories/IShapeFactory.h"
+#include "Shape.h"
+#include "factories/IShapeFactory.h"
 
 class Mass {
 public:

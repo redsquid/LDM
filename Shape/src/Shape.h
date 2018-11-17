@@ -15,18 +15,15 @@ public:
 	Shape(const Shape& shape);
     virtual ~Shape();
     double operator() (const double z) const;
-//    double value(const double z) const;
+    double value(const double z) const;
     double pow2(const double z) const;
     double deriv(const double z) const;
     double zmin() const;
     double zmax() const;
     double zcm() const;
 
-//	double ac(const double z) const;
-//	double ah(const double z) const;
-//	double aa(const double z) const;
 private:
-//    double calcShape(const double z) const;
+    double calcShape(const double z) const;
     static double calcB(const double c, const double h);
     static double calcAs(const double c, const double b);
 
